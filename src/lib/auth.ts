@@ -1,17 +1,24 @@
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
+import db from "./db";
+import bcrypt from "bcryptjs";
 
 const authSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
 });
 
-async function getUserByEmail(email: string): Promise<null> {
-  return await null;
+async function getUserByEmail(email: string) {
+  return await db.user.findUnique({ where: { email } });
 }
 
-export const {} = NextAuth({
+export const { auth, handlers, signIn, signOut } = NextAuth({
+  adapter: PrismaAdapter(db),
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     Credentials({
       credentials: {
@@ -27,12 +34,20 @@ export const {} = NextAuth({
 
             const user = await getUserByEmail(email);
 
-            if (!user) return null;
+            if (!user || !user.password) return null;
 
-            // TODO: verify password hash
-            const passwordsMatch = false;
+            const passwordsMatch = await bcrypt.compare(
+              password,
+              user.password
+            );
 
-            if (passwordsMatch) return user;
+            if (passwordsMatch)
+              return {
+                id: String(user.id),
+                email: user.email,
+                name: user.name,
+                image: user.email,
+              };
           }
           return null;
         } catch (error) {
@@ -41,8 +56,4 @@ export const {} = NextAuth({
       },
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
-  session: {
-    strategy: "jwt",
-  },
 });

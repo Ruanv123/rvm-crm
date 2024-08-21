@@ -6,11 +6,12 @@ import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
 import { Loader } from "../loader";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const schema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
@@ -21,20 +22,29 @@ const schema = z.object({
 });
 
 export function SignupForm() {
-  const { execute, isPending, result } = useAction(registerUser);
+  const { executeAsync, isPending } = useAction(registerUser, {
+    onError: ({error}) => {
+      toast.error("Something went wrong");
+      router.push("/signup");
+    },
+    onSuccess: ({data}) => {
+      toast.success(data?.message);
+    },
+  });
+  
   const router = useRouter();
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
   });
 
-  function onSubmit({
+  async function onSubmit({
     email,
     name,
     password,
     phone,
     role,
   }: z.infer<typeof schema>) {
-    execute({ email, name, password, phone, role });
+    await executeAsync({ email, name, password, phone, role });
 
     router.refresh();
 
@@ -42,9 +52,12 @@ export function SignupForm() {
   }
 
   return (
-    <Card className="min-w-[350px]">
-      <CardHeader>
-        <CardTitle>Register user</CardTitle>
+    <Card className="max-w-sm w-full">
+       <CardHeader>
+        <CardTitle className="text-xl">Sign Up</CardTitle>
+        <CardDescription>
+          Enter your information to create an account
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>

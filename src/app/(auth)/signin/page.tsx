@@ -1,7 +1,9 @@
+import { SigninForm } from "@/components/forms/signin-form";
+
 export default function SigninPage() {
   return (
-    <div>
-      <h1>Sign in</h1>
+    <div className="h-screen flex items-center justify-center">
+      <SigninForm />
     </div>
   );
 }

@@ -17,19 +17,19 @@ import {
 } from "@/components/ui/chart";
 import { useMemo } from "react";
 import { Dollar01Icon } from "hugeicons-react";
-import { HomeGraphic2 } from "@/components/hom-graphic-2";
+import { HomeGraphic2 } from "@/components/charts/hom-graphic-2";
 
 export default function Home() {
   return (
     <div className="w-full">
-      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
         <DashboardComponentItem title="Number of Companies" value="30" />
         <DashboardComponentItem title="Number of Contacts" value="88" />
         <DashboardComponentItem title="Total deals in pipeline" value="288" />
         {/* <DashboardComponentItem /> */}
       </div>
 
-      <div className="grid gap-4 grid-cols-3 mt-2 h-[450px]">
+      <div className="grid gap-4 grid-cols-3 md:gap-6 mt-2 h-[450px]">
         <DashboardComponentGraph1 />
         <HomeGraphic2 />
       </div>
