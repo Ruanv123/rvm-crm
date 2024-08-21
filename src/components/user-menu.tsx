@@ -58,7 +58,7 @@ export function UserNav({ user }: Props) {
           <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={Logout} className="cursor-pointer">
+        <DropdownMenuItem onClick={() => Logout()} className="cursor-pointer">
           Log out
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
