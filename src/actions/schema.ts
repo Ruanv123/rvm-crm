@@ -7,4 +7,3 @@ export const registerUserSchema = z.object({
   phone: z.string(),
   role: z.string(),
 });
-
