@@ -25,6 +25,7 @@ import { useAction } from "next-safe-action/hooks";
 import { loginUser } from "@/actions/login-action";
 import { toast } from "sonner";
 import { Loader } from "../loader";
+import { PasswordInput } from "../ui/password-input";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -92,7 +93,7 @@ export function SigninForm() {
                     </div>
 
                     <FormControl>
-                      <Input type="password" placeholder="" {...field} />
+                      <PasswordInput {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
