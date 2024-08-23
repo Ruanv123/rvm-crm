@@ -9,7 +9,7 @@ import {
   DeliveryBox01Icon,
   Notification02Icon,
   UserGroupIcon,
-  WaterfallDown01Icon
+  WaterfallDown01Icon,
 } from "hugeicons-react";
 import { BellDotIcon } from "lucide-react";
 
@@ -21,7 +21,7 @@ export default async function DashboardLayout({
   const session = await auth();
 
   if (!session) {
-    return
+    return;
   }
 
   return (
@@ -42,7 +42,7 @@ export default async function DashboardLayout({
         <SidebarItem
           icon={<UserGroupIcon size={20} />}
           text="Sales Pipeline"
-          link="/"
+          link="/sale-pipeline"
         />
         <SidebarItem
           icon={<DeliveryBox01Icon size={20} />}

@@ -6,7 +6,13 @@ import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
+// import {
+//   Card,
+//   CardContent,
+//   CardDescription,
+//   CardHeader,
+//   CardTitle,
+// } from "../ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
 import { Loader } from "../loader";
@@ -23,15 +29,15 @@ const schema = z.object({
 
 export function SignupForm() {
   const { executeAsync, isPending } = useAction(registerUser, {
-    onError: ({error}) => {
+    onError: ({ error }) => {
       toast.error("Something went wrong");
       router.push("/signup");
     },
-    onSuccess: ({data}) => {
+    onSuccess: ({ data }) => {
       toast.success(data?.message);
     },
   });
-  
+
   const router = useRouter();
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -52,94 +58,90 @@ export function SignupForm() {
   }
 
   return (
-    <Card className="max-w-sm w-full">
-       <CardHeader>
-        <CardTitle className="text-xl">Sign Up</CardTitle>
-        <CardDescription>
-          Enter your information to create an account
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              name="name"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="name"
-                      autoComplete="off"
-                      autoCapitalize="none"
-                      autoCorrect="off"
-                      spellCheck="false"
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="email"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input {...field} type="email" placeholder="email..." />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="password"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="password"
-                      placeholder="password..."
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="phone"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="phone..." />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="role"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Role</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="role..." />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+    // <Card className="max-w-sm w-full">
+    //    <CardHeader>
+    //     <CardTitle className="text-xl">Sign Up</CardTitle>
+    //     <CardDescription>
+    //       Enter your information to create an account
+    //     </CardDescription>
+    //   </CardHeader>
+    //   <CardContent>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          name="name"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  placeholder="name"
+                  autoComplete="off"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  spellCheck="false"
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="email"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input {...field} type="email" placeholder="email..." />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="password"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input {...field} type="password" placeholder="password..." />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="phone"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Phone</FormLabel>
+              <FormControl>
+                <Input {...field} placeholder="phone..." />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="role"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Role</FormLabel>
+              <FormControl>
+                <Input {...field} placeholder="role..." />
+              </FormControl>
+            </FormItem>
+          )}
+        />
 
-            <Button type="submit" className="w-full" disabled={isPending}>
-              {isPending ? <Loader /> : "submit"}
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+        <Button type="submit" className="w-full" disabled={isPending}>
+          {isPending ? <Loader /> : "submit"}
+        </Button>
+      </form>
+    </Form>
+    //   </CardContent>
+    // </Card>
   );
 }

@@ -21,7 +21,7 @@ import { HomeGraphic2 } from "@/components/charts/hom-graphic-2";
 
 export default function Home() {
   return (
-    <div className="w-full">
+    <div className="w-full grid gap-5">
       <div className="grid gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
         <DashboardComponentItem title="Number of Companies" value="30" />
         <DashboardComponentItem title="Number of Contacts" value="88" />
